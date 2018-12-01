@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block content %}
+    <div class="section scrollspy">
+    <div class="container">
+        <br>
+    <p></p>
+        <br>
+     {% if  '/A/' in request.path   %}
+        <h4 class="header light-green-text">Arabic Modules </h4><strong><a href="{% url 'home' %}">Home</a></strong>
+    {% elif '/C/' in request.path %}
+        <h4 class="header light-green-text">Chinese Modules</h4><strong><a href="{% url 'home' %}">Home</a></strong>
+    {% elif '/R/' in request.path %}
+        <h4 class="header light-green-text">Russian Modules</h4><strong><a href="{% url 'home' %}">Home</a></strong>
+    {% endif %}
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+
+            {% for obj in modules %}
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+
+                <div class="col s12">
+                <span class="black-text">
+                    <h4>{{ obj.name }}</h4>
+                </span>
+                        <div class="col s12">
+                            <p>{{ obj.introduction|safe }}</p>
+                        </div>
+                        <div class="col s12">
+                            {% if obj.objectives %}
+                                <p>{{ obj.objectives| safe }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col s12">
+                            <h5>Topics</h5>
+                            {% for top in obj.topics.all %}
+                                <ul>
+                                    <li><strong><a href="{% url 'home' %}top/{{ top.pk }}">{{ top }}</a></strong></li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}
