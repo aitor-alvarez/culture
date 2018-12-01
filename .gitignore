@@ -2,4 +2,5 @@ db.sqlite3
 __init__.py
 __pycache__
 *.pyc
+*.txt
 settings.py
