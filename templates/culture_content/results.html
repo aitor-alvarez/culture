@@ -24,7 +24,7 @@
 <script type="text/javascript">
          var slider = document.getElementById('slider-experts');
          var slider2 = document.getElementById('slider-results');
-
+         slider2.setAttribute('disabled', true);
                 noUiSlider.create(slider, {
                 start: [2.5, 3.5],
                 connect: true,
@@ -52,10 +52,15 @@
                      'min': 0,
                      'max': 5
                    },
+                     pips: {
+        mode: 'range',
+        density: 20
+    },
                    format: wNumb({
                      decimals: 1
                    })
                   });
+
 
   </script>
 
