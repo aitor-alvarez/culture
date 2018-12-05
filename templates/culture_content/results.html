@@ -21,10 +21,14 @@
     </div>
 
     <script src="{% static '/assets/js/nouislider.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function () {
          var slider = document.getElementById('slider-experts');
          var slider2 = document.getElementById('slider-results');
+
          slider2.setAttribute('disabled', true);
+
                 noUiSlider.create(slider, {
                 start: [2.5, 3.5],
                 connect: true,
@@ -53,14 +57,18 @@
                      'max': 5
                    },
                      pips: {
-        mode: 'range',
-        density: 20
-    },
+                        mode: 'range',
+                        density: 20
+                    },
                    format: wNumb({
                      decimals: 1
                    })
                   });
+var dot = $('#slider-experts .noUi-origin');
 
+dot.addClass('noUi-origin2');
+dot.removeClass('noUi-origin');
+});
 
   </script>
 
