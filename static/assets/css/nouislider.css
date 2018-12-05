@@ -36,19 +36,30 @@
 }
 .noUi-connect {
   position: absolute;
+  height: 14px;
   right: 0;
-  top: 0;
+  top: -6px;
   left: 0;
   bottom: 0;
+
 }
 .noUi-origin {
   position: absolute;
   height: 0;
   width: 0;
 }
+
+.noUi-origin2 {
+  display: none;
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+
 .noUi-handle {
   position: relative;
   z-index: 1;
+
 }
 .noUi-state-tap .noUi-connect,
 .noUi-state-tap .noUi-origin {
