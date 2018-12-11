@@ -116,7 +116,7 @@ class Answer (models.Model):
 @python_2_unicode_compatible
 class Response(models.Model):
     answer = models.ForeignKey(Answer, verbose_name=("Options"), on_delete=models.CASCADE)
-    response = models.DecimalField(verbose_name='Response', max_digits=2, decimal_places=1)
+    response = models.DecimalField(verbose_name='Response', max_digits=3, decimal_places=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -8,14 +8,12 @@
         <p><a id="back" href="">Go back</a></p>
     <div class="card-panel grey lighten-5 z-depth-1" id="description">
                 <div class="row valign-wrapper">
-
                     <div class="col s12">
-                        <h5>Description</h5>
-
+                        <h5>Vignette</h5>
                         <span class="black-text">{{ scenario.description }}</span>
                         <hr>
                         {% if scenario.context_after_feedback == 0 %}
-                            <h5>Context</h5>
+
                             <span class="black-text">
                                 <p>{{ scenario.initial_information|safe  }}</p>
                             </span>
@@ -54,7 +52,7 @@
     <div class="card-panel grey lighten-5 z-depth-1" id="feedback">
                 <div class="row valign-wrapper">
 
-                    <table>
+                    <table id="feedback_options">
                         <thead>
                             <tr>
                                 <th>Option</th>
@@ -62,12 +60,10 @@
                             </tr>
                         </thead>
                             <tbody>
-                                {% for an in scenario.judgment_task.get_answers %}
-                                    <tr>
-                                          <td>{{ an.content }}</td>
-                                          <td>{{ an.feedback_final }}</td>
+                                    <tr >
+                                          <td></td>
+                                          <td></td>
                                     </tr>
-                                {% endfor %}
                             </tbody>
                     </table>
                 </div>
@@ -78,7 +74,6 @@
 
                     <div class="col s12">
                         {% if scenario.context_after_feedback == 1 %}
-                            <strong>Context</strong>
                             <span class="black-text">
                                 <p>{{ scenario.initial_information|safe  }}</p>
                             </span>
@@ -112,7 +107,7 @@
             </div>
         </div>
     </div>
-    <a class="waves-effect blue-grey btn-large" id="desbutton">Description</a>
+    <a class="waves-effect blue-grey btn-large" id="desbutton">Vignette</a>
     <a class="waves-effect blue-grey btn-large" id="judgbutton">Judgment Task</a>
     </div>
     </div>
@@ -144,21 +139,21 @@
             $("#judgbutton").hide();
             $( ".range-field" ).each(function() {
                         var id = $( this ).attr("data-id");
-                        var eval = parseFloat($( this ).find('span').text()).toFixed(1);
+                        var response = $( this ).find('span').text();
+                        var eval = parseFloat(response).toFixed(1);
                         if (isNaN(eval)){
                             eval = 2.5;
                         };
                 saveResponse(id, eval);
                 });
             $("#preloader").show().delay(1500).fadeOut(500);
-            $("#feedback").fadeIn(2000);;
+            $("#feedback").fadeIn(2000);
         });
         $("#next").click(function(){
             $("#feedback").hide();
             $("#description").hide();
             $("#feedback2").show();
         });
-
 });
     </script>
 {% endblock %}
