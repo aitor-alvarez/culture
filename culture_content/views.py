@@ -31,4 +31,5 @@ def save_response(request, answer_id, response):
         expert['feedback'] = answer.feedback_final
         expert['from']=answer.rating_from
         expert['to'] = answer.rating_to
+        expert['response_id'] = response.pk
         return JsonResponse(expert, content_type='application/json')

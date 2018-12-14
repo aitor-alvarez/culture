@@ -12,17 +12,26 @@
                         <h5>Vignette</h5>
                         <span class="black-text">{{ scenario.description }}</span>
                         <hr>
-                        {% if scenario.context_after_feedback == 0 %}
 
-                            <span class="black-text">
-                                <p>{{ scenario.initial_information|safe  }}</p>
-                            </span>
+                        {% if scenario.culture_note_after_feedback == 0 or scenario.culture_note_before_and_after_feedback == 1%}
+                         <div class="col s12">
+                                    <strong>Language Note</strong>
+                                <p>{{ scenario.culture_note|safe  }}</p>
+                         </div>
+
                         {% endif %}
-                        {% if scenario.language_note_after_feedback == 0 %}
+                        {% if scenario.language_note_after_feedback == 0 or scenario.language_note_before_and_after_feedback == 1 %}
                          <div class="col s12">
                                     <strong>Language Note</strong>
                                 <p>{{ scenario.language_note|safe  }}</p>
                          </div>
+
+                        {% endif %}
+                        {% if scenario.context_after_feedback == 0 or scenario.context_before_and_after_feedback == 1 %}
+
+                            <span class="black-text">
+                                <p>{{ scenario.initial_information|safe  }}</p>
+                            </span>
                         {% endif %}
                     </div>
                 </div>
@@ -50,51 +59,36 @@
      <a class="blue btn" id="send">Submit</a>
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" id="feedback">
-                <div class="row valign-wrapper">
+                    <div id="results">
 
-                    <table id="feedback_options">
-                        <thead>
-                            <tr>
-                                <th>Option</th>
-                                <th>Explanation</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                                    <tr >
-                                          <td></td>
-                                          <td></td>
-                                    </tr>
-                            </tbody>
-                    </table>
-                </div>
+                    </div>
         <a class="blue btn" id="next">Next</a>
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" id="feedback2">
                 <div class="row valign-wrapper">
 
                     <div class="col s12">
-                        {% if scenario.context_after_feedback == 1 %}
-                            <span class="black-text">
-                                <p>{{ scenario.initial_information|safe  }}</p>
-                            </span>
-
-                        {% elif scenario.language_note_after_feedback == 1 %}
+                        {% if scenario.culture_note_after_feedback == 1 or scenario.culture_note_before_and_after_feedback == 1 %}
+                         <div class="col s12">
+                                    <strong>Culture Note</strong>
+                                <p>{{ scenario.culture_note|safe  }}</p>
+                         </div>
+                        {% endif %}
+                        {% if scenario.language_note_after_feedback == 1 or scenario.language_note_before_and_after_feedback == 1 %}
                          <div class="col s12">
                                     <strong>Language Note</strong>
                                 <p>{{ scenario.language_note|safe  }}</p>
                          </div>
-                            {% else %}
+                        {% endif %}
+                        {% if scenario.context_after_feedback == 1 or scenario.context_before_and_after_feedback == 1 %}
+                            <span class="black-text">
+                                <p>{{ scenario.initial_information|safe  }}</p>
+                            </span>
+                        {% endif %}
+
                             {% for top in topic %}
                             <a class="blue btn" id="next" href="{% url 'home' %}top/{{ top.id }}">Explore other scenarios in topic {{ top.name }}</a>
                             {%  endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-    </div>
-    <div class="card-panel grey lighten-5 z-depth-1" id="feedback3">
-                <div class="row valign-wrapper">
-                    <div class="col s12">
-                        {% include "culture_content/results.html" %}
                     </div>
                 </div>
     </div>
@@ -113,6 +107,8 @@
     </div>
 {% endblock %}
 {% block js %}
+    <script src="{% static '/assets/js/nouislider.min.js' %}"></script>
+    <script src="{% static '/assets/js/create_slider.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
 	        $('#back').click(function(){
@@ -137,6 +133,7 @@
             $("#description").hide();
             $("#desbutton").hide();
             $("#judgbutton").hide();
+            var values = new Array();
             $( ".range-field" ).each(function() {
                         var id = $( this ).attr("data-id");
                         var response = $( this ).find('span').text();
@@ -144,8 +141,9 @@
                         if (isNaN(eval)){
                             eval = 2.5;
                         };
-                saveResponse(id, eval);
+                values.push(saveResponse(id, eval));
                 });
+            create_slider(values);
             $("#preloader").show().delay(1500).fadeOut(500);
             $("#feedback").fadeIn(2000);
         });

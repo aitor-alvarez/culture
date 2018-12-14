@@ -27,7 +27,6 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name="culture_content/home.html"), name="home"),
-    path('results/', TemplateView.as_view(template_name="culture_content/results.html"), name="results"),
     path('mod/<str:lang>/', get_modules, name='modules'),
     path('top/<int:top_id>/', get_topic_scenarios, name='topic-scenarios'),
     path('scenario/<int:scenario_id>/', get_scenario_detail, name='scenario'),

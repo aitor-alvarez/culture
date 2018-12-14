@@ -48,13 +48,17 @@ class LearningObjectives(models.Model):
 @python_2_unicode_compatible
 class Scenario(models.Model):
     name = models.CharField(max_length=150, blank=False)
-    description = models.TextField(blank=True)
+    description = models.TextField(verbose_name="Vignette", blank=True)
     initial_information = models.TextField(verbose_name="Context of the Scenario", blank=True)
     context_after_feedback = models.BooleanField (default=False, blank=True)
+    context_before_and_after_feedback = models.BooleanField (default=False, blank=True)
     judgment_task = models.ForeignKey('JudgmentTask', on_delete= models.CASCADE)
     language_note = models.TextField(verbose_name="Language Notes", blank=True)
-    culture_note = models.TextField(verbose_name="Language Notes", blank=True)
+    culture_note = models.TextField(verbose_name="Culture Notes", blank=True)
     language_note_after_feedback = models.BooleanField (default=False, blank=True)
+    language_note_before_and_after_feedback = models.BooleanField (default=False, blank=True)
+    culture_note_after_feedback = models.BooleanField (default=False, blank=True)
+    culture_note_before_and_after_feedback = models.BooleanField (default=False, blank=True)
     reflection_task = models.TextField(verbose_name="Scenario Reflection Task", blank=True)
     def __str__(self):
         return self.name
@@ -93,17 +97,15 @@ class JudgmentTask(models.Model):
 @python_2_unicode_compatible
 class Answer (models.Model):
     task = models.ForeignKey(JudgmentTask, verbose_name=("Judgement Task"), on_delete=models.CASCADE)
-
     content = models.TextField(
                                 blank=False,
                                 help_text=("Enter the answer text that "
                                              "you want displayed"),
                                 verbose_name=("Content"))
     feedback_initial = models.TextField( verbose_name= 'Initial Feedback', blank=True)
-    feedback_final = models.TextField (verbose_name='Final Feedback', blank=False)
-
+    feedback_final = models.TextField(verbose_name='Final Feedback', blank=False)
     rating_from = models.DecimalField(verbose_name='Rating From', max_digits=2, decimal_places=1)
-    rating_to = models.DecimalField (verbose_name='Rating To', max_digits=2, decimal_places=1)
+    rating_to = models.DecimalField(verbose_name='Rating To', max_digits=2, decimal_places=1)
 
     def __str__(self):
         return self.content
