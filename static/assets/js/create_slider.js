@@ -7,7 +7,7 @@ function create_slider(responses){
             '                        <div class="col s5"><strong>Option</strong>\n' +
             '                                 <p>'+ item[4] +'</p></div>\n' +
             '                        <div class="col s5"><strong>Explanation</strong>\n' +
-             '                                 <p>'+ item[4] +'</p></div>\n' +
+             '                                 <p>'+ item[5] +'</p></div>\n' +
             '                        </div>\n' +
             '                    </div>\n' +
             '                    <div class="row valign-wrapper">\n' +
