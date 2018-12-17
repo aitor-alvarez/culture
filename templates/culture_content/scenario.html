@@ -107,8 +107,6 @@
     </div>
 {% endblock %}
 {% block js %}
-    <script src="{% static '/assets/js/nouislider.min.js' %}"></script>
-    <script src="{% static '/assets/js/create_slider.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
 	        $('#back').click(function(){
@@ -133,7 +131,7 @@
             $("#description").hide();
             $("#desbutton").hide();
             $("#judgbutton").hide();
-            var values = new Array();
+            var result = [];
             $( ".range-field" ).each(function() {
                         var id = $( this ).attr("data-id");
                         var response = $( this ).find('span').text();
@@ -141,11 +139,17 @@
                         if (isNaN(eval)){
                             eval = 2.5;
                         };
-                values.push(saveResponse(id, eval));
+                var promise = saveResponse(id, eval);
+                promise.done(function (data) {
+                    create_slider([data.answer_id, [data.from, data.to], data.response_id, eval, data.content, data.feedback]);
                 });
-            create_slider(values);
-            $("#preloader").show().delay(1500).fadeOut(500);
-            $("#feedback").fadeIn(2000);
+
+                });
+           // create_slider(result);
+
+            $("#preloader").show().delay(1000).fadeOut(500);
+            $("#feedback").fadeIn(1500);
+
         });
         $("#next").click(function(){
             $("#feedback").hide();

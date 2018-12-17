@@ -28,13 +28,9 @@ function getCookie(name) {
             }
         }
         });
-        $.ajax({
-            type: 'POST',
-            async: false,
-            url: '/save_response/'+answer_id+'/'+response,
-            success:function(data) {
-                result = [data.answer_id,[data.from, data.to], data.response_id, response, data.content, data.feedback];
-        }
+        return $.ajax({
+            url: '/save_response/' + answer_id + '/' + response,
+            type: 'post'
         });
-        return result;
+
     }
