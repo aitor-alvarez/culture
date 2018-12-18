@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
+import random
 
 lang_choices = (
     ('C', 'Chinese'),
@@ -73,7 +74,9 @@ class JudgmentTask(models.Model):
     description = models.TextField(verbose_name="Judgment Task Description", blank=True)
 
     def get_answers(self):
-        return Answer.objects.filter(task=self)
+        answers = Answer.objects.filter(task=self)
+        answers = sorted(answers, key=lambda x: random.random ())
+        return answers
 
     def get_answers_list(self):
         return [(answer.id, answer.content) for answer in
