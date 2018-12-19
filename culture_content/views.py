@@ -6,7 +6,7 @@ import simplejson
 from django.http import JsonResponse
 
 def get_modules(request, lang):
-    modules = Module.objects.filter(language= lang)
+    modules = Module.objects.filter(language= lang).order_by('module_number')
     return render(request, 'culture_content/modules.html', {'modules': modules})
 
 
