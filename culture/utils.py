@@ -6,7 +6,7 @@ from social.exceptions import AuthForbidden
 
 def logout_clean(request):
     logout(request)
-    return redirect('https://accounts.google.com/Logout?&continue=https://www.google.com')
+    return redirect('https://registration.google.com/Logout?&continue=https://www.google.com')
 
 
 def auth_allowed(response, details, *args, **kwargs):
