@@ -8,11 +8,11 @@
     <p></p>
         <br>
      {% if  '/A/' in request.path   %}
-        <h4 class="header light-green-text">Arabic Modules </h4><strong><a href="{% url 'home' %}">Home</a></strong>
+        <h4 class="header light-green-text">Arabic Modules </h4><strong><a href="{% url 'home' %}">Languages</a></strong>
     {% elif '/C/' in request.path %}
-        <h4 class="header light-green-text">Chinese Modules</h4><strong><a href="{% url 'home' %}">Home</a></strong>
+        <h4 class="header light-green-text">Chinese Modules</h4><strong><a href="{% url 'home' %}">Languages</a></strong>
     {% elif '/R/' in request.path %}
-        <h4 class="header light-green-text">Russian Modules</h4><strong><a href="{% url 'home' %}">Home</a></strong>
+        <h4 class="header light-green-text">Russian Modules</h4><strong><a href="{% url 'home' %}">Languages</a></strong>
     {% endif %}
         <div class="col s12 m8 offset-m2 l6 offset-l3">
 

@@ -13,14 +13,14 @@
                         <span class="black-text">{{ scenario.description }}</span>
                         <hr>
 
-                        {% if scenario.culture_note_after_feedback|yesno:"no" or scenario.culture_note_before_and_after_feedback|yesno:"yes"  %}
+                        {% if scenario.culture_note and not scenario.culture_note_after_feedback or scenario.culture_note_before_and_after_feedback|yesno:"yes"  %}
                          <div class="col s12">
                                     <strong>Culture Note</strong>
                                 <p>{{ scenario.culture_note|safe  }}</p>
                          </div>
 
                         {% endif %}
-                        {% if not scenario.language_note_after_feedback|yesno:"no"  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}
+                        {% if scenario.language_note and not scenario.language_note_after_feedback  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}
                          <div class="col s12">
                                     <strong>Language Note</strong>
                                 <p>{{ scenario.language_note|safe  }}</p>
@@ -28,10 +28,12 @@
 
                         {% endif %}
                         {% if not scenario.context_after_feedback|yesno:"no" or scenario.context_before_and_after_feedback|yesno:"yes" %}
-
+                            <div class="col s12">
+                             <strong>Context</strong>
                             <span class="black-text">
                                 <p>{{ scenario.initial_information|safe  }}</p>
                             </span>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -81,9 +83,12 @@
                          </div>
                         {% endif %}
                         {% if scenario.context_after_feedback|yesno:"yes" or scenario.context_before_and_after_feedback|yesno:"yes"  %}
+                            <div class="col s12">
+                             <strong>Context</strong>
                             <span class="black-text">
                                 <p>{{ scenario.initial_information|safe  }}</p>
                             </span>
+                            </div>
                         {% endif %}
 
                             {% for top in topic %}
