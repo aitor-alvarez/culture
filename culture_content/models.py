@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 import random
 
 lang_choices = (
@@ -8,6 +10,18 @@ lang_choices = (
     ('R', 'Russian'),
     ('A', 'Arabic')
 )
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
 
 
 @python_2_unicode_compatible
@@ -21,6 +35,7 @@ class Topic(models.Model):
     extension = models.TextField(verbose_name='Extension Task', blank=True)
     scenarios = models.ManyToManyField('Scenario')
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    author = models.ForeignKey (User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
@@ -33,6 +48,7 @@ class Module(models.Model):
     objectives = models.ForeignKey('LearningObjectives', on_delete=models.CASCADE, blank=True, null=True)
     topics = models.ManyToManyField('Topic')
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    author = models.ForeignKey (User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
@@ -49,7 +65,7 @@ class LearningObjectives(models.Model):
 @python_2_unicode_compatible
 class Scenario(models.Model):
     name = models.CharField(max_length=150, blank=False)
-    description = models.TextField(verbose_name="Vignette", blank=True)
+    description = models.TextField(verbose_name="Situation", blank=True)
     initial_information = models.TextField(verbose_name="Context of the Scenario", blank=True)
     context_after_feedback = models.BooleanField (default=False, blank=True)
     context_before_and_after_feedback = models.BooleanField (default=False, blank=True)
@@ -61,6 +77,7 @@ class Scenario(models.Model):
     culture_note_after_feedback = models.BooleanField (default=False, blank=True)
     culture_note_before_and_after_feedback = models.BooleanField (default=False, blank=True)
     reflection_task = models.TextField(verbose_name="Scenario Reflection Task", blank=True)
+    author = models.ForeignKey (User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 

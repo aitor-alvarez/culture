@@ -9,7 +9,7 @@
     <div class="card-panel grey lighten-5 z-depth-1" id="description">
                 <div class="row valign-wrapper">
                     <div class="col s12">
-                        <h5>Vignette</h5>
+                        <h5>Situation</h5>
                         <span class="black-text">{{ scenario.description|safe }}</span>
                         <hr>
 
@@ -61,6 +61,8 @@
      <a class="blue btn" id="send">Submit</a>
     </div>
     <div class="card-panel grey lighten-5 z-depth-1" id="feedback">
+        <span class="black-text">{{ scenario.description|safe }}</span>
+                        <hr>
                     <div id="results">
 
                     </div>

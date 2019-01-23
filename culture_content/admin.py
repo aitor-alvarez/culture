@@ -40,8 +40,26 @@ class TopicAdmin (admin.ModelAdmin):
                                                )
     filter_horizontal = ('scenarios',)
 
+    def get_queryset(self, request):
+        profile = Profile.objects.get(user = request.user)
+        return Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
+
+
+class ScenarioAdmin(admin.ModelAdmin):
+    class Meta:
+        model = Scenario
+        exclude = []
+
+    def get_queryset(self, request):
+        profile = Profile.objects.get(user = request.user)
+        scenarios_topics = Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
+        scenario_ids = [scenario.pk  for topic in scenarios_topics for scenario in topic.scenarios.all()]
+        return Scenario.objects.filter(id__in =scenario_ids)
+
+
 admin.site.register(Module,  Media=TextMedia)
-admin.site.register(Scenario,  Media=TextMedia)
+admin.site.register(Scenario,  ScenarioAdmin, Media=TextMedia)
 admin.site.register(JudgmentTask, MCQuestionAdmin)
 admin.site.register(Topic, TopicAdmin,  Media=TextMedia)
 admin.site.register(Response)
+admin.site.register(Profile)
