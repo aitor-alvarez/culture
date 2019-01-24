@@ -16,6 +16,8 @@ lang_choices = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    def __str__(self):
+        return self.user.username
 
 
 @receiver(post_save, sender=User)
