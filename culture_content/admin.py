@@ -42,7 +42,10 @@ class TopicAdmin (admin.ModelAdmin):
 
     def get_queryset(self, request):
         profile = Profile.objects.get(user = request.user)
-        return Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
+        if profile.language == 'L':
+            return Topic.objects.all()
+        else:
+            return Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
 
 
 class ScenarioAdmin(admin.ModelAdmin):
@@ -52,9 +55,12 @@ class ScenarioAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         profile = Profile.objects.get(user = request.user)
-        scenarios_topics = Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
-        scenario_ids = [scenario.pk  for topic in scenarios_topics for scenario in topic.scenarios.all()]
-        return Scenario.objects.filter(id__in =scenario_ids)
+        if profile.language == 'L':
+            return Scenario.objects.all()
+        else:
+            scenarios_topics = Topic.objects.filter(language= profile.language) | Topic.objects.filter(author = request.user)
+            scenario_ids = [scenario.pk  for topic in scenarios_topics for scenario in topic.scenarios.all()]
+            return Scenario.objects.filter(id__in =scenario_ids)
 
 
 admin.site.register(Module,  Media=TextMedia)
@@ -63,3 +69,4 @@ admin.site.register(JudgmentTask, MCQuestionAdmin)
 admin.site.register(Topic, TopicAdmin,  Media=TextMedia)
 admin.site.register(Response)
 admin.site.register(Profile)
+admin.site.register(FeedbackLabels)

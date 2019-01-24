@@ -19,7 +19,7 @@ function create_slider(item){
                 '                         <div class="col s8">\n' +
                 '                                <div class="' + class2 + '"></div>\n' +
                 '                        </div>\n' +
-                '                    </div></br><hr></br>');
+                '                    </div></br></br></br><hr></br>');
             $('.' + class1).attr('id', item[0]);
             $('.' + class2).attr('id', item[2]);
             var s1 = document.getElementById(item[0]);
@@ -42,7 +42,7 @@ function create_slider(item){
                 decimals: 1
             })
         });
-
+        var pipFormats = {'0':'Strongly disagree', '5':'Strongly agree'};
         noUiSlider.create(s2, {
             start: item[3],
             connect: true,
@@ -56,11 +56,12 @@ function create_slider(item){
             },
             pips: {
                 mode: 'range',
-                density: 20
-            },
-            format: wNumb({
-                decimals: 1
-            })
+                format: {
+                    to: function(a){
+                    return pipFormats[a];
+                        }
+                    }
+            }
         });
         s2.setAttribute('disabled', true);
         var dot = $('[class*="slider-experts"] .noUi-origin');

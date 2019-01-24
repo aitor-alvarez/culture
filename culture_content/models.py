@@ -8,7 +8,8 @@ import random
 lang_choices = (
     ('C', 'Chinese'),
     ('R', 'Russian'),
-    ('A', 'Arabic')
+    ('A', 'Arabic'),
+    ('L', 'All')
 )
 
 
@@ -50,6 +51,7 @@ class Module(models.Model):
     name = models.CharField(max_length=150, blank=False)
     module_number = models.IntegerField(blank=False)
     introduction = models.TextField (verbose_name="Module Introduction", blank=True)
+    blurb = models.TextField(blank=True, null=True)
     objectives = models.ForeignKey('LearningObjectives', on_delete=models.CASCADE, blank=True, null=True)
     topics = models.ManyToManyField('Topic')
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
