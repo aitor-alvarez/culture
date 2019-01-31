@@ -4,43 +4,27 @@
 {% block content %}
 
 <div class="container">
-    <h3 class="text-darken-4 teal-text">Culture</h3>
+    <!--<h3 class="text-darken-4 teal-text">Culture</h3>
     <h5 class="text-accent-4">Select a language</h5>
+    <br>-->
     <br>
-    <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card-panel grey lighten-5 z-depth-1">
-          <div class="row valign-wrapper">
-            <div class="col s2">
-            </div>
-            <div class="col s10">
-              <span class="black-text">
-                <h5><a href="{% url 'home' %}mod/A">Arabic</a></h5>
-              </span>
-            </div>
-          </div>
+                <a href="{% url 'home' %}mod/A">
+                    <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+                </a>
+                <a href="{% url 'home' %}mod/C">
+                    <img src="{% static '/assets/img/china-347297-optimized.jpg' %}" href="{% url 'home' %}mod/A" class="responsive-img">
+                </a>
+
+
+                <a href="{% url 'home' %}mod/R">
+                    <img src="{% static '/assets/img/astana-3744160-optimized.jpg' %}" href="{% url 'home' %}mod/A" class="responsive-img">
+                </a>
+
+        <div class="col l6 m6 s6">
+            <img src="{% static '/assets/img/TechCenter-logo.png' %}" href="{% url 'home' %}mod/A" class="responsive-img">
         </div>
-        <div class="card-panel grey lighten-5 z-depth-1">
-          <div class="row valign-wrapper">
-            <div class="col s2">
-            </div>
-            <div class="col s10">
-              <span class="black-text">
-                <h5><a href="{% url 'home' %}mod/C">Chinese</a></h5>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="card-panel grey lighten-5 z-depth-1">
-          <div class="row valign-wrapper">
-            <div class="col s2">
-            </div>
-            <div class="col s10">
-              <span class="black-text">
-                <h5><a href="{% url 'home' %}mod/R">Russian</a></h5>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+
+     <img src="{% static '/assets/img/cc-license.png' %}" href="{% url 'home' %}mod/A" class="responsive-img">
+
 </div>
 {% endblock %}

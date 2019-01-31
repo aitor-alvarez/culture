@@ -13,12 +13,13 @@ def get_modules(request, lang):
 @login_required
 def get_topic_scenarios(request, top_id):
     topic = get_object_or_404(Topic, pk=top_id)
-    return render(request, 'culture_content/topics.html', {'topic': topic})
+    module = Module.objects.get(topics__in=[top_id])
+    return render(request, 'culture_content/topics.html', {'topic': topic, 'module': module})
 
 @login_required
 def get_scenario_detail(request, scenario_id):
     scenario = get_object_or_404(Scenario, pk=scenario_id)
-    topic = Topic.objects.filter(scenarios__id =scenario_id)
+    topic = Topic.objects.get(scenarios__in =[scenario_id])
     return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic})
 
 @login_required

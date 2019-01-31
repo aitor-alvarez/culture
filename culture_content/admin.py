@@ -58,7 +58,7 @@ class ScenarioAdmin(admin.ModelAdmin):
         if profile.language == 'L':
             return Scenario.objects.all()
         else:
-            scenarios_topics = Topic.objects.filter(language= profile.language) #| Topic.objects.filter(author = request.user
+            scenarios_topics = Topic.objects.filter(language= profile.language)
             scenario_ids = [scenario.pk  for topic in scenarios_topics for scenario in topic.scenarios.all()]
             return Scenario.objects.filter(id__in =scenario_ids)
 

@@ -2,44 +2,33 @@
 {% load static from staticfiles %}
 {% load static  %}
 {% block content %}
-    <div class="section scrollspy">
+
     <div class="container">
-        <br>
-        <br>
-        <h4 class="header text_b">Scenarios in Topic "{{ topic.name }}"</h4>
-        <p><a href="{% url 'home' %}mod/{{ topic.language }}">Return to modules</a></p>
-        <div class="row">
-            {% for obj in topic.scenarios.all %}
-            <div class="col s12 m6 l4">
+
+ {% if  topic.language == 'A'   %}
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
+    {% elif topic.language == 'C'  %}
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
+    {% elif topic.language == 'R'  %}
+         <img src="{% static '/assets/img/chalk-672187-optimized.jpg' %}"  class="responsive-img">
+
+    {% endif %}
                 <div class="card">
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4"><a href="{% url 'home' %}scenario/{{ obj.pk }}">{{ obj.name }}</a></span>
+                    <h1>{{ module }}<a href="/mod/{{ module.language }}/" class="waves-effect waves-light"><i class="material-icons left">link</i></a></h1>
+                    <h2>{{ topic }}</h2>
+                        {% for scenario in topic.scenarios.all %}
+                            <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
+                        {% endfor %}
+
                     </div>
                 </div>
-            </div>
-            {% endfor %}
-            {% if topic.reflection %}
-                <div class="col s12 m6 l4">
-                <div class="card">
-                    <div class="card-content">
-                        <span id="reflectitle" class="card-title activator grey-text text-darken-4">Reflection Task</span>
-                        <div id="reflection">{{ topic.reflection|safe }}</div>
+
                     </div>
-                </div>
-                </div>
-            {% elif topic.roleplay %}
-                <div class="col s12 m6 l4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Roleplay Task </span>
-                        <p>{{ topic.roleplay|safe }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
+
+
 {% endblock %}
 {% block js %}
     <script>

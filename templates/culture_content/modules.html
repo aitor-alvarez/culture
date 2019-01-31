@@ -3,50 +3,66 @@
 {% load static %}
 {% block content %}
     <div class="section scrollspy">
+
     <div class="container">
-        <br>
-    <p></p>
-        <br>
-     {% if  '/A/' in request.path   %}
-        <h4 class="header light-green-text">Arabic Modules </h4><strong><a href="{% url 'home' %}">Languages</a></strong>
+
+ {% if  '/A/' in request.path   %}
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
     {% elif '/C/' in request.path %}
-        <h4 class="header light-green-text">Chinese Modules</h4><strong><a href="{% url 'home' %}">Languages</a></strong>
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
     {% elif '/R/' in request.path %}
-        <h4 class="header light-green-text">Russian Modules</h4><strong><a href="{% url 'home' %}">Languages</a></strong>
+         <img src="{% static '/assets/img/almaty-91219-optimized.jpg' %}"  class="responsive-img">
+
     {% endif %}
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
 
             {% for obj in modules %}
-            <div class="card-panel grey lighten-5 z-depth-1">
-                <div class="row valign-wrapper">
-
-                <div class="col s12">
-                <span class="black-text">
-                    <h4>{{ obj.name }}</h4>
-                </span>
-                        <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                    <h1>{{ obj.name }}</h1>
+                    <div id="blurb">
+                        <p>{{ obj.blurb|safe }}</p>
+                    </div>
+                    <a data-downbtn="{{ obj.id}}" class="blue btn-floating"><i class="material-icons left">keyboard_arrow_down</i></a>
+                    <a data-upbtn="{{ obj.id}}" class="blue btn-floating"><i class="material-icons left">keyboard_arrow_up</i></a>
+                    <div data-hidden="{{ obj.id}}">
                             <p>{{ obj.introduction|safe }}</p>
-                        </div>
-                        <div class="col s12">
                             {% if obj.objectives %}
                                 <p>{{ obj.objectives| safe }}</p>
                             {% endif %}
-                        </div>
-                        <div class="col s12">
-                            <h5>Topics</h5>
-                            {% for top in obj.topics.all %}
+                            <h3>Topics</h3>
+
                                 <ul>
+                                {% for top in obj.topics.all %}
                                     <li><strong><a href="{% url 'home' %}top/{{ top.pk }}">{{ top }}</a></strong></li>
+                                    {% endfor %}
                                 </ul>
-                            {% endfor %}
-                        </div>
                         </div>
                     </div>
+                </div>
+                {% endfor %}
+                    </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+
 {% endblock %}
 {% block js %}
+    <script>
+    $(document).ready(function() {
+        $('[data-hidden]*').hide();
+        $('[data-upbtn]*').hide();
+        $('[data-downbtn]').click(function(){
+            var id = $(this).attr('data-downbtn');
+            $(this).hide();
+            $('[data-upbtn='+id+']').show();
+            $('[data-hidden='+id+']').show();
+    });
+        $('[data-upbtn]').click(function(){
+            var id = $(this).attr('data-upbtn');
+            $(this).hide();
+            $('[data-downbtn='+id+']').show();
+            $('[data-hidden='+id+']').hide();
+            });
+        })
+    </script>
 {% endblock %}

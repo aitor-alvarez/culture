@@ -4,12 +4,23 @@
 {% block content %}
     <div class="section scrollspy">
     <div class="container">
-        <h4>{{ scenario.name }}</h4>
+        {% if  topic.language == 'A'   %}
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
+    {% elif topic.language == 'C'  %}
+         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+
+    {% elif topic.language == 'R'  %}
+         <img src="{% static '/assets/img/chalk-672187-optimized.jpg' %}"  class="responsive-img">
+
+    {% endif %}
+        <h1>{{ topic }}</h1>
+        <h2><strong>{{ scenario.name }}</strong></h2>
         <p><a id="back" href="">Go back</a></p>
     <div class="card-panel grey lighten-5 z-depth-1" id="description">
                 <div class="row valign-wrapper">
                     <div class="col s12">
-                        <h5>Situation</h5>
+                        <span class="black-text">Situation</span>
                         <span class="black-text">{{ scenario.description|safe }}</span>
                         <hr>
 
@@ -22,7 +33,7 @@
                         {% endif %}
                         {% if scenario.language_note and not scenario.language_note_after_feedback  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}
                          <div class="col s12">
-                                    <strong>Language Note</strong>
+                                    <span class="black-text">Language Note</span>
                                 <p>{{ scenario.language_note|safe  }}</p>
                          </div>
                         <hr>
@@ -42,12 +53,12 @@
 
                 <div class="row valign-wrapper">
                     <div class="col s12">
-                        <strong>{{ scenario.judgment_task.description }}</strong>
+                        {{ scenario.judgment_task.description }}
                          <div class="col s12">
                             <ul class="collection">
                                 {% for an in scenario.judgment_task.get_answers %}
                                     <li class="collection-item">
-                                          <span class="title">{{ an.content }}</span>
+                                          <p>{{ an.content }}</p>
                                         <br>
                                         <p class="range-field" data-id="{{ an.pk }}">
                                          <input type="range"  min="0" max="5" step="0.1"/>
@@ -97,9 +108,9 @@
                             </div>
                         {% endif %}
 
-                            {% for top in topic %}
-                            <a class="blue btn" id="next" href="{% url 'home' %}top/{{ top.id }}">Explore other scenarios in topic {{ top.name }}</a>
-                            {%  endfor %}
+
+                            <a class="blue btn" id="next" href="{% url 'home' %}top/{{ topic.id }}">Explore other scenarios in topic {{ topic.name }}</a>
+
                     </div>
                 </div>
     </div>
@@ -112,8 +123,8 @@
             </div>
         </div>
     </div>
-    <a class="waves-effect blue-grey btn-large" id="desbutton">Vignette</a>
-    <a class="waves-effect blue-grey btn-large" id="judgbutton">Judgment Task</a>
+    <a class="waves-effect blue btn" id="desbutton">Situation</a>
+    <a class="waves-effect blue btn" id="judgbutton">Judgment Task</a>
     </div>
     </div>
 {% endblock %}
@@ -125,6 +136,7 @@
 		        return false;
 	        });
         $("#preloader").hide();
+        $("#desbutton").hide();
         $("#judgment").hide();
         $("#feedback").hide();
         $("#feedback2").hide();
@@ -132,10 +144,16 @@
         $("#desbutton").click(function(){
             $("#judgment").hide();
             $("#description").show();
+            $("#desbutton").hide();
+            $("#judgbutton").show();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         });
         $("#judgbutton").click(function(){
             $("#judgment").show();
             $("#description").hide();
+            $("#judgbutton").hide();
+            $("#desbutton").show();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         });
         $("#send").click(function(){
             $("#judgment").hide();
