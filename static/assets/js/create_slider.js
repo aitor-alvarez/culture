@@ -1,25 +1,19 @@
 function create_slider(item){
            var  class1 = 'slider-experts-' + item[0];
            var class2 = 'slider-results-' + item[2];
-            $('#results').append('<div class="row valign-wrapper">\n' +
-                '                        <div class="col s5"><strong>Option</strong>\n' +
-                '                                 <p>' + item[4] + '</p></div>\n' +
-                '                        <div class="col s5"><strong>Explanation</strong>\n' +
+            $('#results').append(
+                '                        <div class="row s12">\n' +
+                '                                 <p >' + item[4] + '</p></div>\n' +
+                '                        </div></br>\n' +
+                 '                         <div class="row s12"><strong>You</strong>\n' +
+                '                                <div class="' + class2 + '"></div></br></br>\n' +
+                '                        </div>\n' +
+                '                        <div class="row s12"><strong>Expert</strong>\n' +
+                '                                <div class="' + class1 + '"></div></br></br>\n' +
+                '                    </div>\n' +
+                '                        <div class="row s12">\n' +
                 '                                 <p>' + item[5] + '</p></div>\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="row valign-wrapper">\n' +
-                '                        <div class="col s2"><strong>Expert assessment</strong></div>\n' +
-                '                        <div class="col s8">\n' +
-                '                                <div class="' + class1 + '"></div>\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                     <div class="row valign-wrapper">\n' +
-                '                         <div class="col s2"><strong>Your response</strong></div>\n' +
-                '                         <div class="col s8">\n' +
-                '                                <div class="' + class2 + '"></div>\n' +
-                '                        </div>\n' +
-                '                    </div></br></br></br><hr></br>');
+                '</br></br></br></br>');
             $('.' + class1).attr('id', item[0]);
             $('.' + class2).attr('id', item[2]);
             var s1 = document.getElementById(item[0]);
