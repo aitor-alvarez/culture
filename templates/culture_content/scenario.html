@@ -16,34 +16,29 @@
     {% endif %}
         <h1>{{ topic }}</h1>
         <h2><strong>{{ scenario.name }}</strong></h2>
-        <p><a id="back" href="">Go back</a></p>
+        <a class="waves-effect blue btn" id="desbutton">Situation</a>
+        <br>
+        <br>
     <div  id="description">
                 <div class="row valign-wrapper">
                     <div class="col s12">
-                        <span class="black-text">Situation</span>
+                        <h3>Situation</h3>
                         <span class="black-text">{{ scenario.description|safe }}</span>
+                        {% if not scenario.context_after_feedback|yesno:"no" or scenario.context_before_and_after_feedback|yesno:"yes" %}
 
+                             <h3>Context</h3>
+                                <p>{{ scenario.initial_information|safe  }}</p>
+
+                        {% endif %}
                         {% if scenario.culture_note and not scenario.culture_note_after_feedback or scenario.culture_note_before_and_after_feedback|yesno:"yes"  %}
-                         <div class="col s12">
-                                    <strong>Culture Note</strong>
+                                    <h3>Culture Note</h3>
                                 <p>{{ scenario.culture_note|safe  }}</p>
-                         </div>
-                        <hr>
                         {% endif %}
                         {% if scenario.language_note and not scenario.language_note_after_feedback  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}
-                         <div class="col s12">
-                                    <span class="black-text">Language Note</span>
+
+                                    <h3>Language Note</h3>
                                 <p>{{ scenario.language_note|safe  }}</p>
-                         </div>
-                        <hr>
-                        {% endif %}
-                        {% if not scenario.context_after_feedback|yesno:"no" or scenario.context_before_and_after_feedback|yesno:"yes" %}
-                            <div class="col s12">
-                             <strong>Context</strong>
-                            <span class="black-text">
-                                <p>{{ scenario.initial_information|safe  }}</p>
-                            </span>
-                            </div>
+
                         {% endif %}
                     </div>
                 </div>
@@ -52,7 +47,7 @@
 
 
                     <div class="col s12">
-                        {{ scenario.judgment_task.description }}
+                        <p class="instructions">{{ scenario.judgment_task.description }}</p>
                          <div class="col s12">
                             <ul>
                                 {% for an in scenario.judgment_task.get_answers %}
@@ -69,50 +64,44 @@
                     </div>
 
      <a class="blue btn" id="send">Submit</a>
+     <br>
+     <br>
     </div>
+    <a class="waves-effect blue btn" id="judgbutton">Judgment Task</a>
+    </br>
     </br>
     <div id="feedback">
-        <h5>Situation</h5>
-        <br>
-        <span class="black-text">{{ scenario.description|safe }}</span>
-
-        <h5>Feedback</h5>
-        <br>
-        <br>
+        <h3>Situation</h3>
+        <p class="instructions">{{ scenario.description|safe }}</p>
+        <h3>Feedback</h3>
                     <div id="results">
 
                     </div>
-        <a class="blue btn" id="next">Next</a>
+        <a href="#" id="next">Next</a>
     </div>
     <div  id="feedback2">
-                <div>
 
-                    <div class="col s12">
+
+                        {% if scenario.context_after_feedback|yesno:"yes" or scenario.context_before_and_after_feedback|yesno:"yes"  %}
+
+                             <h3>Context</h3>
+                                <p>{{ scenario.initial_information|safe  }}</p>
+
+                        {% endif %}
                         {% if scenario.culture_note_after_feedback|yesno:"yes" or scenario.culture_note_before_and_after_feedback|yesno:"yes" %}
-                         <div class="col s12">
-                                    <strong>Culture Note</strong>
+
+                                    <h3>Culture Note</h3>
                                 <p>{{ scenario.culture_note|safe  }}</p>
-                         </div>
+
                         {% endif %}
                         {% if scenario.language_note_after_feedback|yesno:"yes"  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}
-                         <div class="col s12">
-                                    <strong>Language Note</strong>
+
+                                    <h3>Language Note</h3>
                                 <p>{{ scenario.language_note|safe  }}</p>
-                         </div>
+
                         {% endif %}
-                        {% if scenario.context_after_feedback|yesno:"yes" or scenario.context_before_and_after_feedback|yesno:"yes"  %}
-                            <div class="col s12">
-                             <strong>Context</strong>
-                            <span class="black-text">
-                                <p>{{ scenario.initial_information|safe  }}</p>
-                            </span>
-                            </div>
-                        {% endif %}
+                            <a id="next" href="{% url 'home' %}top/{{ topic.id }}">Explore other scenarios in topic {{ topic.name }}</a>
 
-
-                            <a class="blue btn" id="next" href="{% url 'home' %}top/{{ topic.id }}">Explore other scenarios in topic {{ topic.name }}</a>
-
-                    </div>
                 </div>
     </div>
     <div id="preloader">
@@ -124,8 +113,7 @@
             </div>
         </div>
     </div>
-    <a class="waves-effect blue btn" id="desbutton">Situation</a>
-    <a class="waves-effect blue btn" id="judgbutton">Judgment Task</a>
+
     </div>
     </div>
 {% endblock %}

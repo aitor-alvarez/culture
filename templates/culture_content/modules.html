@@ -28,9 +28,10 @@
                     <div data-hidden="{{ obj.id}}">
                             <p>{{ obj.introduction|safe }}</p>
                             {% if obj.objectives %}
-                                <p>{{ obj.objectives| safe }}</p>
+                                <h3>Learning Objectives</h3>
+                                <p>{{ obj.objectives.objectives| safe }}</p>
                             {% endif %}
-                            <h3>Topics</h3>
+                            <h3>{{ obj.name }} Topics </h3>
 
                                 <ul>
                                 {% for top in obj.topics.all %}

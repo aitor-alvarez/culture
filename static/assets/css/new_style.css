@@ -8,7 +8,8 @@ body {
 	.title {
     font-family : Roboto, Arial, "sans-serif";
     font-weight : 900;
-    font-size: 120%;
+    font-size: 160%;
+		line-height: 0.9;
     color : #FFFFFF;
 }
 	h1 {
@@ -52,10 +53,19 @@ body {
     color : rgba(46,46,46,1.00);
 	line-height: 1.4;
 }
+
 	a:link {
 		font-weight : 900;
 		font-style: normal;
 		color : rgba(3,155,229,1.00);
+		text-decoration: none;
+
+	}
+
+	a.navbar {
+		font-weight : 900;
+		font-style: normal;
+		color : #FFFFFF;
 		text-decoration: none;
 
 	}
@@ -83,9 +93,9 @@ body {
 
 	.feedback {
     font-family : Roboto, Arial, "sans-serif";
-    font-weight : 100;
-    font-size: 90%;
-    color : rgba(3,155,229,1.00);
+    font-weight : 600;
+    font-size: 100%;
+    color : #2196F3;
 }
 
 	.button {
