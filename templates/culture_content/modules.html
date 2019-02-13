@@ -33,11 +33,11 @@
                             {% endif %}
                             <h3>{{ obj.name }} Topics </h3>
 
-                                <ul>
+
                                 {% for top in obj.topics.all %}
-                                    <li><strong><a href="{% url 'home' %}top/{{ top.pk }}">{{ top }}</a></strong></li>
-                                    {% endfor %}
-                                </ul>
+                                    <p><strong><a href="{% url 'home' %}top/{{ top.pk }}">{{ top }}</a></strong></p>
+                                {% endfor %}
+
                         </div>
 
                 {% endfor %}

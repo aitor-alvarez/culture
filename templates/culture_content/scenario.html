@@ -8,7 +8,7 @@
          <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
 
     {% elif topic.language == 'C'  %}
-         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
+         <img src="{% static '/assets/img/china-347297-optimized.jpg' %}"  class="responsive-img">
 
     {% elif topic.language == 'R'  %}
          <img src="{% static '/assets/img/chalk-672187-optimized.jpg' %}"  class="responsive-img">
@@ -53,10 +53,10 @@
                                 {% for an in scenario.judgment_task.get_answers %}
                                     <li class="collection-item">
                                           <p>{{ an.content }}</p>
-                                        <br>
                                         <p class="range-field" data-id="{{ an.pk }}">
                                          <input type="range"  min="0" max="5" step="0.1"/>
                                         </p>
+                                        <br>
                                         </li>
                                 {% endfor %}
                             </ul>

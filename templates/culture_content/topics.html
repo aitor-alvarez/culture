@@ -20,7 +20,30 @@
                         {% for scenario in topic.scenarios.all %}
                             <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
                         {% endfor %}
-
+                    {% if topic.objectives %}
+                    <h3>Learning Objectives</h3>
+                        <p>{{ topic.objectives|safe }}</p>
+                    {% endif %}
+                    {% if topic.activation %}
+                    <h3>Activation</h3>
+                        <p>{{ topic.activation|safe }}</p>
+                    {% endif %}
+                    {% if topic.new_information %}
+                    <h3>New information</h3>
+                        <p>{{ topic.new_information|safe }}</p>
+                    {% endif %}
+                    {% if topic.reflection %}
+                    <h3>Reflection task</h3>
+                        <p>{{ topic.reflection|safe }}</p>
+                    {% endif %}
+                    {% if topic.roleplay %}
+                    <h3>Roleplay</h3>
+                        <p>{{ topic.roleplay|safe }}</p>
+                    {% endif %}
+                    {% if topic.extension %}
+                    <h3>Extension task</h3>
+                        <p>{{ topic.extension|safe }}</p>
+                    {% endif %}
     </div>
 
 </div>
