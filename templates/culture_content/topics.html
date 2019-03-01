@@ -4,34 +4,25 @@
 {% block content %}
 <div class="section scrollspy">
     <div class="container">
+     <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img"></a>
 
- {% if  topic.language == 'A'   %}
-     <a href="{% url 'home' %}mod/{{ module.language }}/"><img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img"></a>
 
-    {% elif topic.language == 'C'  %}
-         <a href="{% url 'home' %}mod/{{ module.language }}/"><img src="{% static '/assets/img/china-347297-optimized.jpg' %}"  class="responsive-img"></a>
-
-    {% elif topic.language == 'R'  %}
-     <a href="{% url 'home' %}mod/{{ module.language }}/"><img src="{% static '/assets/img/chalk-672187-optimized.jpg' %}"  class="responsive-img"></a>
-
-    {% endif %}
                     <h1>{{ module }}</h1>
                     <h2>{{ topic }}</h2>
-                        {% for scenario in topic.scenarios.all %}
-                            <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
-                        {% endfor %}
-                    {% if topic.objectives %}
-                    <h3>Learning Objectives</h3>
-                        <p>{{ topic.objectives|safe }}</p>
-                    {% endif %}
                     {% if topic.activation %}
-                    <h3>Activation</h3>
                         <p>{{ topic.activation|safe }}</p>
                     {% endif %}
-                    {% if topic.new_information %}
-                    <h3>New information</h3>
+                     {% if topic.new_information %}
                         <p>{{ topic.new_information|safe }}</p>
                     {% endif %}
+                    {% if topic.objectives %}
+                    <h3>Learning Objectives</h3>
+                        <p>{{ topic.objectives.objectives|safe }}</p>
+                    {% endif %}
+                    <h3>Situations</h3>
+                    {% for scenario in topic.scenarios.all %}
+                            <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
+                        {% endfor %}
                     {% if topic.reflection %}
                     <h3>Reflection task</h3>
                         <p>{{ topic.reflection|safe }}</p>

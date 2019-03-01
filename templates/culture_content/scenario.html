@@ -4,16 +4,7 @@
 {% block content %}
     <div class="section scrollspy">
     <div class="container">
-        {% if  topic.language == 'A'   %}
-         <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
-
-    {% elif topic.language == 'C'  %}
-         <img src="{% static '/assets/img/china-347297-optimized.jpg' %}"  class="responsive-img">
-
-    {% elif topic.language == 'R'  %}
-         <img src="{% static '/assets/img/chalk-672187-optimized.jpg' %}"  class="responsive-img">
-
-    {% endif %}
+       <img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img">
         <h1>{{ topic }}</h1>
         <h2><strong>{{ scenario.name }}</strong></h2>
         <a class="waves-effect blue btn" id="desbutton">Situation</a>

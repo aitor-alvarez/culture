@@ -57,6 +57,7 @@ class Module(models.Model):
     objectives = models.ForeignKey('LearningObjectives', on_delete=models.CASCADE, blank=True, null=True)
     topics = models.ManyToManyField('Topic')
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    image_for_topics = models.ImageField()
     author = models.ForeignKey (User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
