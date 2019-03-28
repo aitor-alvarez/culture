@@ -8,7 +8,6 @@
 
  {% if  '/A/' in request.path   %}
          <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
-
     {% elif '/C/' in request.path %}
          <img src="{% static '/assets/img/china-347297-optimized.jpg' %}"  class="responsive-img">
 
@@ -23,12 +22,12 @@
                     <div id="blurb">
                         <p>{{ obj.blurb|safe }}</p>
                     </div>
-                    <a data-downbtn="{{ obj.id}}" class="blue btn-floating"><i class="material-icons left">keyboard_arrow_down</i></a>
-                    <a data-upbtn="{{ obj.id}}" class="blue btn-floating"><i class="material-icons left">keyboard_arrow_up</i></a>
+                    <a data-downbtn="{{ obj.id}}" href="#show" class="white btn">More</a>
+                    <a data-upbtn="{{ obj.id}}" class="blue btn">Less</a>
                     <div data-hidden="{{ obj.id}}">
                             <p>{{ obj.introduction|safe }}</p>
                             {% if obj.objectives %}
-                                <h3>Learning Objectives</h3>
+                                <h3 id="show">Learning Objectives</h3>
                                 <p>{{ obj.objectives.objectives| safe }}</p>
                             {% endif %}
                             <h3>{{ obj.name }} Topics </h3>

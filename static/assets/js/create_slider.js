@@ -23,7 +23,6 @@ function create_slider(item){
             var s2 = document.getElementById(item[2]);
 
 
-
         noUiSlider.create(s1, {
             start: item[1],
             connect: true,

@@ -5,10 +5,10 @@
 <div class="section scrollspy">
     <div class="container">
      <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img"></a>
-
-
-                    <h1>{{ module }}</h1>
-                    <h2>{{ topic }}</h2>
+     <p>
+        <a href="{% url 'home' %}mod/{{ module.language }}/">{{ module }}</a>
+    </p>
+                    <h1>{{ topic }}</h1>
                     {% if topic.activation %}
                         <p>{{ topic.activation|safe }}</p>
                     {% endif %}
@@ -24,7 +24,7 @@
                             <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
                         {% endfor %}
                     {% if topic.reflection %}
-                    <h3>Reflection task</h3>
+                    <h3>Reflection task for "{{ topic.name }}"</h3>
                         <p>{{ topic.reflection|safe }}</p>
                     {% endif %}
                     {% if topic.roleplay %}
