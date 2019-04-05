@@ -9,7 +9,8 @@ lang_choices = (
     ('C', 'Chinese'),
     ('R', 'Russian'),
     ('A', 'Arabic'),
-    ('L', 'All')
+    ('L', 'All'),
+    ('S', 'Quickstart Guide')
 )
 
 
@@ -32,6 +33,7 @@ class FeedbackLabels(models.Model):
     def __str__(self):
         return self.get_language_display()
 
+
 @python_2_unicode_compatible
 class Topic(models.Model):
     name = models.CharField(max_length=150, blank=False)
@@ -52,13 +54,13 @@ class Topic(models.Model):
 class Module(models.Model):
     name = models.CharField(max_length=150, blank=False)
     module_number = models.IntegerField(blank=False)
-    introduction = models.TextField (verbose_name="Module Introduction", blank=True)
+    introduction = models.TextField(verbose_name="Module Introduction", blank=True)
     blurb = models.TextField(blank=True, null=True)
     objectives = models.ForeignKey('LearningObjectives', on_delete=models.CASCADE, blank=True, null=True)
     topics = models.ManyToManyField('Topic')
-    language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    language = models.CharField(max_length=1, choices=lang_choices, blank=False)
     image_for_topics = models.ImageField()
-    author = models.ForeignKey (User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
@@ -88,6 +90,7 @@ class Scenario(models.Model):
     culture_note_before_and_after_feedback = models.BooleanField (default=False, blank=True)
     reflection_task = models.TextField(verbose_name="Scenario Reflection Task", blank=True)
     author = models.ForeignKey (User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
 
@@ -136,6 +139,11 @@ class Answer (models.Model):
     feedback_final = models.TextField(verbose_name='Final Feedback', blank=False)
     rating_from = models.DecimalField(verbose_name='Rating From', max_digits=2, decimal_places=1)
     rating_to = models.DecimalField(verbose_name='Rating To', max_digits=2, decimal_places=1)
+
+    def get_responses(self):
+        users = User.objects.exclude(id__in=(1, 2, 3))
+        responses = Response.objects.filter(answer=self, user__in=users)
+        return responses
 
     def __str__(self):
         return self.content

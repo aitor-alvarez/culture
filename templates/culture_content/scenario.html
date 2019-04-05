@@ -92,9 +92,12 @@
 
                         {% endif %}
                         {% if scenario.culture_note_after_feedback|yesno:"yes" or scenario.culture_note_before_and_after_feedback|yesno:"yes" %}
-
+                            <div style="background-color:rgba(223,234, 241,1); margin: 2%; padding: 2%; border-radius: 10px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1);">
+                                <div style="padding: 3%; border: 3px dashed rgba(192,214,228,1); border-radius: 10px; margin: 0 auto;">
                                     <h3>Culture Note</h3>
                                 <p>{{ scenario.culture_note|safe  }}</p>
+                                </div>
+                            </div>
 
                         {% endif %}
                         {% if scenario.language_note_after_feedback|yesno:"yes"  or scenario.language_note_before_and_after_feedback|yesno:"yes"  %}

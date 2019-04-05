@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+{% for task in tasks %}
+    {% for response in task.get_answers %}
+        {%  for res in response.get_responses %}
+                <p>{{ res.response }} | {{ res.answer.rating_from }} - {{ res.answer.rating_to }}</p>
+            {% endfor %}
+    {% endfor %}
+{% endfor %}
+
+</div>
+{% endblock %}

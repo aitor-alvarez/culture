@@ -31,4 +31,5 @@ urlpatterns = [
     path('top/<int:top_id>/', get_topic_scenarios, name='topic-scenarios'),
     path('scenario/<int:scenario_id>/', get_scenario_detail, name='scenario'),
     path('save_response/<int:answer_id>/<str:response>', save_response, name='save_response'),
+    path('responses/<str:lang>/', get_user_responses, name='responses')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
