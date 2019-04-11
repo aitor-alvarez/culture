@@ -4,13 +4,51 @@
 {% block content %}
 
 <div class="container">
-{% for task in tasks %}
-    {% for response in task.get_answers %}
-        {%  for res in response.get_responses %}
-                <p>{{ res.response }} | {{ res.answer.rating_from }} - {{ res.answer.rating_to }}</p>
-            {% endfor %}
-    {% endfor %}
+<br>
+{% if user_language in request.path or user_language == 'L'%}
+    <a href="{% url 'home' %}dashboard" class="waves-effect blue btn" id="desbutton" >Return to dashboard</a>
+    <hr>
+{% endif %}
+{% if  '/A/' in request.path   %}
+         <h2>Summary for Arabic situations</h2>
+    {% elif '/C/' in request.path %}
+         <h2>Summary for Chinese situations</h2>
+
+    {% elif '/R/' in request.path %}
+         <h2>Summary for Russian situations</h2>
+    {% endif %}
+{% if user_language in request.path or user_language == 'L'%}
+<table id="results" class="display">
+        <thead>
+          <tr>
+              <th>Scenario</th>
+              <th>Attempts</th>
+              <th>% in agreement with experts</th>
+              <th>Details</th>
+          </tr>
+        </thead>
+<tbody>
+{% for stat in stats %}
+          <tr>
+            <td>{{ stat.0.name }}</td>
+            <td>{{ stat.1.0 }}</td>
+            <td>{{ stat.1.1 }}</td>
+            <td><a href="/responses/scenario/{{ stat.0.id }}">View</a></td>
+          </tr>
 {% endfor %}
+</tbody>
+      </table>
+{% else %}
+<h4>You do not have permission to access this page </h4>
+{% endif %}
+
 
 </div>
+{% endblock %}
+{% block js %}
+<script>
+$(document).ready( function () {
+    $('#results').DataTable();
+} );
+</script>
 {% endblock %}

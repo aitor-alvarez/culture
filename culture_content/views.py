@@ -5,9 +5,10 @@ from django.http import HttpResponse
 import simplejson
 from django.http import JsonResponse
 
+
 @login_required
 def get_modules(request, lang):
-    modules = Module.objects.filter(language= lang).order_by('module_number')
+    modules = Module.objects.filter(language=lang).order_by('module_number')
     return render(request, 'culture_content/modules.html', {'modules': modules})
 
 
@@ -43,30 +44,56 @@ def save_response(request, answer_id, response):
 
 @login_required
 def get_user_responses(request, lang):
-    users = User.objects.exclude(id__in=(1, 2, 3))
+    statistics = []
+    user_profile = Profile.objects.get(user=request.user)
     modules = Module.objects.filter(language=lang)
     topics = Module.objects.filter(id__in=modules).values('topics')
     scenarios = Topic.objects.filter(id__in=topics).values('scenarios')
-    tasks = Scenario.objects.filter(id__in=scenarios).filter(judgment_task__answer__response__user_id__in=users).values('judgment_task')
-    tasks = JudgmentTask.objects.filter(id__in=tasks)
-    statistics = get_task_statistics(tasks)
-    return render(request, 'culture_content/responses.html', {'stats': statistics, 'modules': modules, 'topics': topics})
+    scenarios = Scenario.objects.filter(id__in=scenarios)
+    for scene in scenarios:
+        options_stats, scenario_stats = get_scenario_results(scene.id)
+        statistics.append([scene, scenario_stats])
+    return render(request, 'culture_content/responses.html', {'stats': statistics, 'user_language': user_profile.language})
 
 
-def get_task_statistics(tasks):
-    stats={}
-    for task in tasks:
-        results=[]
-        for response in task.get_answers():
-            for res in response.get_responses():
-                if res.response >= res.answer.rating_from and res.response <= res.answer.rating_to:
-                    results.append(1)
-                else:
-                    results.append(0)
-        stats[task.name]= 100*(sum(results)/len(results))
-    return(stats)
+@login_required
+def get_options_results(request, scenario_id):
+    scenario = Scenario.objects.get (id=scenario_id)
+    options_stats, scenario_stats = get_scenario_results(scenario_id)
+    user_profile = Profile.objects.get (user=request.user)
+    return render (request, 'culture_content/options_responses.html', {'stats': options_stats, 'user_language': user_profile.language, 'scenario_language': scenario.get_scenario_language()})
 
 
+
+def get_scenario_results(scenario_id):
+    scenario = Scenario.objects.get (pk=scenario_id)
+    options = []
+    attempts = []
+    stats = []
+    for answer in scenario.judgment_task.get_answers ():
+        options.append (answer)
+        results = []
+        responses = 0
+        for res in answer.get_responses():
+            responses += 1
+            if res.response >= res.answer.rating_from and res.response <= res.answer.rating_to:
+                results.append (1)
+            else:
+                results.append (0)
+        attempts.append (round (len(results)))
+        if len(results)>0:
+            stats.append (round(100 * (sum (results)/len(results))))
+        else:
+            stats.append(0)
+    output = zip (options, attempts, stats)
+    scenario_stats=(attempts[0], round(sum(stats)/len(stats)))
+    return(output, scenario_stats)
+
+
+@login_required
+def get_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'culture_content/dashboard.html', {'profile': profile})
 
 
 

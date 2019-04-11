@@ -9,8 +9,7 @@ lang_choices = (
     ('C', 'Chinese'),
     ('R', 'Russian'),
     ('A', 'Arabic'),
-    ('L', 'All'),
-    ('S', 'Quickstart Guide')
+    ('L', 'All')
 )
 
 
@@ -28,8 +27,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 class FeedbackLabels(models.Model):
     label_max = models.CharField(verbose_name='Label for maximum level of agreement', max_length=150, blank=False)
-    label_min = models.CharField (verbose_name='Label for minimum level of agreement', max_length=150, blank=False)
-    language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    label_min = models.CharField(verbose_name='Label for minimum level of agreement', max_length=150, blank=False)
+    language = models.CharField(max_length=1, choices=lang_choices, blank=False)
     def __str__(self):
         return self.get_language_display()
 
@@ -69,7 +68,7 @@ class Module(models.Model):
 class LearningObjectives(models.Model):
     name = models.CharField(max_length=150, blank=False)
     objectives = models.TextField(verbose_name="Learning Objectives", blank=False)
-    language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    language = models.CharField(max_length=1, choices=lang_choices, blank=False)
     def __str__(self):
         return self.name
 
@@ -90,6 +89,11 @@ class Scenario(models.Model):
     culture_note_before_and_after_feedback = models.BooleanField (default=False, blank=True)
     reflection_task = models.TextField(verbose_name="Scenario Reflection Task", blank=True)
     author = models.ForeignKey (User, on_delete=models.CASCADE)
+
+    def get_scenario_language(self):
+        topic = Topic.objects.get(scenarios__in=[self.id])
+        return topic.language
+
 
     def __str__(self):
         return self.name
