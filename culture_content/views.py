@@ -3,7 +3,7 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import simplejson
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 
 
 @login_required
@@ -92,8 +92,11 @@ def get_scenario_results(scenario_id):
 
 @login_required
 def get_profile(request):
-    profile = Profile.objects.get(user=request.user)
-    return render(request, 'culture_content/dashboard.html', {'profile': profile})
+    if request.user.is_staff:
+        profile = Profile.objects.get(user=request.user)
+        return render(request, 'culture_content/dashboard.html', {'profile': profile})
+    else:
+        return HttpResponseForbidden()
 
 
 
