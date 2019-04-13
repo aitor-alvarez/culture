@@ -5043,7 +5043,7 @@ nav ul a span.badge {
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 60%; } }
+    width: 40%; } }
 
 .container .row {
   margin-left: -0.75rem;

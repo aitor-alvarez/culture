@@ -11,8 +11,10 @@
         <h1>{{ scenario.name }}</h1>
         <a class="waves-effect blue btn" id="desbutton">Situation</a>
         <a class="waves-effect blue btn" id="hidebutton">Hide situation</a>
-        <br>
-        <br>
+        <div class="spaces">
+            <br>
+            <br>
+        </div>
     <div  id="description">
                 <div class="row valign-wrapper">
                     <div class="col s12">
@@ -68,12 +70,16 @@
                     </div>
 
      <a class="blue btn" id="send">Submit</a>
-     <br>
-     <br>
+     <div class="spaces">
+        <br>
+        <br>
+     </div>
     </div>
     <a class="waves-effect blue btn" id="judgbutton">Task</a>
+    <div class="spaces">
     </br>
     </br>
+    </div>
     <div id="feedback">
         <p class="instructions">{{ scenario.description|safe }}</p>
         <h3>Feedback</h3>
@@ -167,8 +173,11 @@
         $("#send").click(function(){
             $("#judgment").hide();
             $("#description").hide();
-            $("#desbutton").hide();
-            $("#judgbutton").hide();
+            $('.spaces').find('br').remove()
+            $('.spaces').remove();
+            $("#hidebutton").remove();
+            $("#desbutton").remove();
+            $("#judgbutton").remove();
             var promises = [];
             var ids=[];
             $( ".range-field" ).each(function() {
