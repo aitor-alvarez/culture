@@ -139,6 +139,7 @@
 {% block js %}
     <script type="text/javascript">
         $(document).ready(function(){
+            $('p').filter(function () { return $.trim(this.innerHTML) == "" }).remove();
 	        $('#back').click(function(){
 		        parent.history.back();
 		        return false;

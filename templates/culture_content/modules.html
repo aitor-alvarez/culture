@@ -9,6 +9,9 @@
  {% if  '/A/' in request.path   %}
          <img src="{% static '/assets/img/morocco-2349647-optimized.jpg' %}"  class="responsive-img">
     {% elif '/C/' in request.path %}
+      <a href="{% url 'home' %}mod/Q">
+                    <img src="{% static '/assets/img/quickstart-guide.jpg' %}" class="responsive-img">
+                </a>
          <img src="{% static '/assets/img/china-347297-optimized.jpg' %}"  class="responsive-img">
 
     {% elif '/R/' in request.path %}
@@ -23,7 +26,7 @@
                     <div id="blurb">
                         <p>{{ obj.blurb|safe }}</p>
                     </div>
-                    <a data-downbtn="{{ obj.id}}" href="#show" class="white btn">More</a>
+                    <a data-downbtn="{{ obj.id}}" class="blue btn">More</a>
                     <a data-upbtn="{{ obj.id}}" class="blue btn">Less</a>
                     <div data-hidden="{{ obj.id}}">
                             <p>{{ obj.introduction|safe }}</p>
