@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from culture_content.views import *
+from course.views import *
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 
@@ -30,8 +31,10 @@ urlpatterns = [
     path('mod/<str:lang>/', get_modules, name='modules'),
     path('top/<int:top_id>/', get_topic_scenarios, name='topic-scenarios'),
     path('scenario/<int:scenario_id>/', get_scenario_detail, name='scenario'),
+    path('course_results/<int:course_id>/', get_user_responses_in_course, name='responses_course'),
     path('save_response/<int:answer_id>/<str:response>', save_response, name='save_response'),
     path('responses/<str:lang>/', get_user_responses, name='responses'),
     path('responses/scenario/<int:scenario_id>/', get_options_results, name='responses'),
-    path('dashboard', get_profile, name='profile')
+    path('dashboard', get_profile, name='profile'),
+    path('profile', get_user_data, name='user_profile')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

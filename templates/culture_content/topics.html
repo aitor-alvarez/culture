@@ -20,9 +20,17 @@
                         <p>{{ topic.objectives.objectives|safe }}</p>
                     {% endif %}
                     <h3>Situations</h3>
-                    {% for scenario in topic.scenarios.all %}
-                            <p><a href="{% url 'home' %}scenario/{{ scenario.pk }}">{{ scenario }}</a></p>
-                        {% endfor %}
+
+                    {% for scenario in scenario_results %}
+                            <p>
+                                {% if  scenario.1.0 == 0 %}
+                                <a class="chipred"  data-position="top" data-chip="This is the number of times that you have completed this scenario"> {{ scenario.1.0 }}</a>
+                                {% else %}
+                                <a class="chip"  data-position="top" data-chip="This is the number of times that you have completed this scenario"> {{ scenario.1.0 }}</a>
+                                {% endif %}
+                                <a class="tooltipped" data-position="bottom" data-tooltip="I am a tooltip" href="{% url 'home' %}scenario/{{ scenario.0.pk }} ">{{ scenario.0 }}</a></p>
+                    {% endfor %}
+
                     {% if topic.reflection %}
                     <h3>Reflection task for "{{ topic.name }}"</h3>
                         <p>{{ topic.reflection|safe }}</p>
@@ -41,7 +49,9 @@
 {% endblock %}
 {% block js %}
     <script>
+
      $(document).ready(function(){
+         $(".chip").tooltip();
         $( "#reflection" ).hide();
         $( "#reflectitle" ).click(function() {
         $( "#reflection" ).toggle("slow");

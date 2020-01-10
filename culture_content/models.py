@@ -11,11 +11,16 @@ lang_choices = (
     ('A', 'Arabic'),
     ('L', 'All')
 )
+user_choices = (
+    ('I', 'Instructor'),
+    ('S', 'Student')
+)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     language = models.CharField (max_length=1, choices=lang_choices, blank=False)
+    type = models.CharField(max_length=1, choices=user_choices, blank=True, default='S')
     def __str__(self):
         return self.user.username
 
@@ -24,6 +29,7 @@ class Profile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
 
 class FeedbackLabels(models.Model):
     label_max = models.CharField(verbose_name='Label for maximum level of agreement', max_length=150, blank=False)
@@ -146,6 +152,10 @@ class Answer (models.Model):
 
     def get_responses(self):
         users = User.objects.exclude(id__in=(1, 2, 3))
+        responses = Response.objects.filter(answer=self, user__in=users)
+        return responses
+
+    def get_user_responses(self, users):
         responses = Response.objects.filter(answer=self, user__in=users)
         return responses
 

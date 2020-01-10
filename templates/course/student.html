@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+<h1>Track your progress</h1>
+<h3>Scenarios</h3>
+<br>
+<ul class="collection">
+    {% for result in results %}
+        <li class="collection-item">
+            <h4>{{ result.0.name }} | {{ result.1.1 }} %</h4>
+        </li>
+    {%  endfor %}
+</ul>
+</div>
+{% endblock %}

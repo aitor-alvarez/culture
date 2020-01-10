@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from django.contrib import admin
@@ -22,7 +21,7 @@ class MCQuestionAdmin(admin.ModelAdmin):
         exclude = []
     list_display = ('name', )
     list_filter = ('name',)
-    fields = ('name', 'description' )
+    fields = ('name', 'description')
 
     search_fields = ('name', )
     inlines = [AnswerInline]
@@ -70,4 +69,3 @@ admin.site.register(Topic, TopicAdmin,  Media=TextMedia)
 admin.site.register(Response)
 admin.site.register(LearningObjectives, Media=TextMedia)
 admin.site.register(Profile)
-admin.site.register(FeedbackLabels)

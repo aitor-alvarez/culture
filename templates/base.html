@@ -45,7 +45,10 @@
                 {% else %}
                 <a href="{% url 'home' %}" class="navbar"> CULTURE APP</a>
                 {% endif %}
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <a href="{% url 'user_profile' %}" class="navlink" ><i class="large material-icons">person</i></a>
 
+                </ul>
                <!-- <ul id="nav-mobile" class="side-nav">
                     <li><a href="{% url 'home' %}">Home</a></li>
                 </ul>

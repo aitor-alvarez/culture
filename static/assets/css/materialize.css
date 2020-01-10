@@ -1979,6 +1979,12 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent; }
 
+ .navlink{
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent; }
+
+
 .valign-wrapper {
   display: -webkit-box;
   display: -moz-box;
@@ -6177,6 +6183,16 @@ a.waves-effect .waves-ripple {
   .collapsible.popout > li.active {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     margin: 16px 0; }
+  .chipred {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: lightcoral; }
 
 .chip {
   display: inline-block;
@@ -6187,7 +6203,7 @@ a.waves-effect .waves-ripple {
   line-height: 32px;
   padding: 0 12px;
   border-radius: 16px;
-  background-color: #E4E4E4; }
+  background-color: lightgreen; }
   .chip img {
     float: left;
     margin: 0 8px 0 -12px;
